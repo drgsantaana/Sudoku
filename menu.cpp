@@ -17,7 +17,8 @@ void SairMenu(){
     exit(0);
 }
 
-int MenuDificuldade(int &retorno){
+int MenuDificuldade(){
+    int retorno=0;
     int opcao;
     LimpaTela();
     std::cout << "1 - FACIL \n2 - DIFICIL \n3 - IMPOSSIVEL \n4 - RETORNAR AO MENU INICIAL \n5 - SAIR\n";
@@ -42,16 +43,18 @@ int MenuDificuldade(int &retorno){
         break;
     case '5':
         SairMenu();
+        break;
     default:
         std::cout << "Você deve escolher uma opcao valida\n";
         std::cout << "Pressione qualquer tecla para voltar ao menu\n\n";
         PausaTela();
-        retorno = MenuDificuldade(retorno);
+        retorno = MenuDificuldade();
     }
     return retorno;
 }
 
-int MenuRegras(int retorno){
+int MenuRegras(){
+    int retorno=0;
     int opcao;
     LimpaTela();
     std::cout << "REGRAS: " << std::endl;
@@ -76,16 +79,18 @@ int MenuRegras(int retorno){
         break;
     case '2':
         SairMenu();
+        break;
     default:
         std::cout << "Você deve escolher uma opcao valida\n";
         std::cout << "Pressione qualquer tecla para voltar ao menu\n\n";
         PausaTela();
-        retorno = MenuRegras(retorno);
+        retorno = MenuRegras();
     }
     return retorno;
 }
 
-int MenuCreditos(int &retorno){
+int MenuCreditos(){
+    int retorno=0;
     int opcao;
     LimpaTela();
     std::cout << "CREDITOS: " << std::endl;
@@ -105,11 +110,12 @@ int MenuCreditos(int &retorno){
         break;
     case '2':
         SairMenu();
+        break;
     default:
         std::cout << "Você deve escolher uma opcao valida\n";
         std::cout << "Pressione qualquer tecla para voltar ao menu\n\n";
         PausaTela();
-        MenuCreditos(retorno);
+        MenuCreditos();
     }
     return retorno;
 }
@@ -123,13 +129,17 @@ int MenuInicial(){
     switch (opcao)
     {
     case '1':
-        MenuDificuldade(retorno);
+        retorno = MenuDificuldade();
+        break;
     case '2':
-        MenuRegras(retorno);
+        retorno = MenuRegras();
+        break;
     case '3':
-    MenuCreditos(retorno);
+        retorno = MenuCreditos();
+        break;
     case '4':
         SairMenu();
+        break;
     default:
         std::cout << "Você deve escolher uma opcao valida\n";
         std::cout << "Pressione qualquer tecla para voltar ao menu\n\n";
@@ -149,6 +159,8 @@ int main(void){
 
     dificuldade = MenuInicial();
 
-    }while(dificuldade<=0 && dificuldade>3);
+    }while(dificuldade==0);
+
+    std::cout << dificuldade << std::endl;
 
 }
