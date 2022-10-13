@@ -1,3 +1,5 @@
+//Menu ja implementado no codigo principal
+
 #include <iostream>
 #include <conio.h>
 #include <clocale>
