@@ -13,143 +13,161 @@
 #include <conio.h>
 
 
-#define N 9
-#define facil 25 
-#define medio 50
-#define impossiel 60
+const int N = 9;
+const int facil = 25;
+const int medio = 50;
+const int impossivel = 60;
 
 int gabarito[N][N],jogofeito[N][N],vet1[N],vet2[N],vet3[N],cont;
 
 unsigned seed = time(0);
 
-//Menu
-int menu()
-{
-    int opcao;
-
-inicio:
+void LimpaTela(){
     system("cls");
-    system("color 0F");
-    std::cout << "1 - JOGAR \n2 - REGRAS \n3 - CREDITOS \n4 - SAIR\n";
+}
+
+void PausaTela(){
+    system("pause");
+}
+
+void SairMenu(){
+    LimpaTela();
+    std::cout << "Você pediu para sair!!" << std::endl;
+    PausaTela();
+    exit(0);
+}
+
+int MenuDificuldade(){
+    int retorno=0;
+    int opcao;
+    LimpaTela();
+    std::cout << "1 - FACIL \n2 - DIFICIL \n3 - IMPOSSIVEL \n4 - RETORNAR AO MENU INICIAL \n5 - SAIR\n";
     opcao = getch();
     switch (opcao)
     {
     case '1':
-dificuldade:
-        system("cls");
-        std::cout << "1 - FACIL \n2 - DIFICIL \n3 - IMPOSSIVEL \n4 - RETORNAR AO MENU INICIAL \n5 - SAIR\n";
-        opcao = getch();
-        switch(opcao)
-        {
-        case '1':
-            system("cls");
-            return 1;
-            break;
-        case '2':
-            system("cls");
-            return 2;
-            break;
-        case '3':
-            system("cls");
-            return 3;
-            break;
-        case '4':
-            system("cls");
-            goto inicio;
-            break;
-        case '5':
-            std::cout << "Você pediu para sair, precione qualquer tecla para continuar" << std::endl;
-            system("pause");
-            exit(0);
-        default:
-            std::cout << "Você deve escolher uma opcao valida\n";
-            std::cout << "Precione qualquer tecla para voltar ao menu\n\n";
-            system("pause");
-            goto dificuldade;
-        }
+        LimpaTela();
+        retorno= 1;
         break;
     case '2':
-regras:
-        system("cls");
-        std::cout << "REGRAS: " << std::endl;
-        std::cout << std::endl << "O objetivo do jogo é completar todos os quadrados utilizando numeros de 1 a 9. " << std::endl;
-        std::cout << std::endl << "Para completa-los basta seguir as seguintes regras:" << std::endl;
-        std::cout << std::endl << "Não podem haver numeros repetidos nas linhas horizontais" << std::endl;
-        std::cout << "Não podem haver numeros repetidos nas linhas verticais" << std::endl;
-        std::cout << "Não podem haver numeros repetidos nos quadrados delimitados" << std::endl;
-        std::cout << "O numero 0 equivale a um espaço vazio, Você devera preenchelos" << std::endl;
-        std::cout << "Escreva a coordenada do espaço vazio e digite o numero desejado" << std::endl;
-        std::cout << "ATENÇÃO: NENHUM NUMERO PODERA SER TROCADO, COM GRANDES PODERES VEM GRANDES RESPONSABILIDADES" << std::endl;
-        std::cout << "SUDOKU é um jogo de raciocinio e logica." << std::endl;
-        std::cout << std::endl << "1 - RETORNAR AO MENU INICIAL \n2 - SAIR\n" << std::endl;
-        opcao = getch();
-        switch(opcao)
-        {
-        case '1':
-            system("cls");
-            goto inicio;
-            break;
-        case '2':
-            system("cls");
-            std::cout << "Você pediu para sair, prencione qualquer tecla para continuar\n";
-            system("pause");
-            exit(0);
-        default:
-            std::cout << "Você deve escolher uma opcao valida\n";
-            std::cout << "Precione qualquer tecla para voltar ao menu\n\n";
-            system("pause");
-            goto regras;
-
-        }
-        return 0;
+        LimpaTela();
+        retorno= 2;
         break;
     case '3':
-creditos:
-        system("cls");
-        std::cout << "CREDITOS: " << std::endl;
-        std::cout << std::endl << "###################################################" << std::endl;
-        std::cout << "IFMG- BAMBUI" << std::endl;
-        std::cout << "Nome: Daniel Reis Goncalves Sant'ana" << std::endl;
-        std::cout << "Turma: ENGC-2022" << std::endl;
-        std::cout << "Titulo: Sudoku Project" << std::endl;
-        std::cout << "###################################################" << std::endl;
-        std::cout << std::endl << "1 - RETORNAR AO MENU INICIAL \n2 - SAIR\n" << std::endl;
-        opcao = getch();
-        switch(opcao)
-        {
-        case '1':
-            system("cls");
-            goto inicio;
-            break;
-        case '2':
-            system("cls");
-            std::cout << "Você pediu para sair, prencione qualquer tecla para continuar\n";
-            system("pause");
-            exit(0);
-        default:
-            std::cout << "Você deve escolher uma opcao valida\n";
-            std::cout << "Precione qualquer tecla para voltar ao menu\n\n";
-            system("pause");
-            goto creditos;
-        }
-        return 0;
+        LimpaTela();
+        retorno= 3;
         break;
     case '4':
-        system("cls");
-        std::cout << "Você pediu para sair, prencione qualquer tecla para continuar\n";
-        system("pause");
-        exit(0);
+        LimpaTela();
+        retorno= 0;
+        break;
+    case '5':
+        SairMenu();
+        break;
     default:
         std::cout << "Você deve escolher uma opcao valida\n";
-        std::cout << "Precione qualquer tecla para voltar ao menu\n\n";
-        system("pause");
-        goto inicio;
+        std::cout << "Pressione qualquer tecla para voltar ao menu\n\n";
+        PausaTela();
+        retorno = MenuDificuldade();
     }
-
-
-
+    return retorno;
 }
 
+int MenuRegras(){
+    int retorno=0;
+    int opcao;
+    LimpaTela();
+    std::cout << "REGRAS: " << std::endl;
+    std::cout << std::endl << "O objetivo do jogo é completar todos os quadrados utilizando numeros de 1 a 9. " << std::endl;
+    std::cout << std::endl << "Para completa-los basta seguir as seguintes regras:" << std::endl;
+    std::cout << std::endl << "Não podem haver numeros repetidos nas linhas horizontais" << std::endl;
+    std::cout << "Não podem haver numeros repetidos nas linhas verticais" << std::endl;
+    std::cout << "Não podem haver numeros repetidos nos quadrados delimitados" << std::endl;
+    std::cout << "O numero 0 equivale a um espaço vazio, Você devera preenchelos" << std::endl;
+    std::cout << "Escreva a coordenada do espaço vazio e digite o numero desejado" << std::endl;
+    std::cout << "ATENÇÃO: NENHUM NUMERO PODERA SER TROCADO, COM GRANDES PODERES VEM GRANDES RESPONSABILIDADES" << std::endl;
+    std::cout << "SUDOKU é um jogo de raciocinio e logica." << std::endl;
+    std::cout << std::endl << "1 - RETORNAR AO MENU INICIAL \n2 - SAIR\n" << std::endl;
+
+    opcao = getch();
+
+    switch(opcao)
+    {
+    case '1':
+        LimpaTela();
+        retorno = 0;
+        break;
+    case '2':
+        SairMenu();
+        break;
+    default:
+        std::cout << "Você deve escolher uma opcao valida\n";
+        std::cout << "Pressione qualquer tecla para voltar ao menu\n\n";
+        PausaTela();
+        retorno = MenuRegras();
+    }
+    return retorno;
+}
+
+int MenuCreditos(){
+    int retorno=0;
+    int opcao;
+    LimpaTela();
+    std::cout << "CREDITOS: " << std::endl;
+    std::cout << std::endl << "###################################################" << std::endl;
+    std::cout << "IFMG- BAMBUI" << std::endl;
+    std::cout << "Nome: Daniel Reis Gonçalves Sant'ana" << std::endl;
+    std::cout << "Turma: ENGC-2022" << std::endl;
+    std::cout << "Titulo: Sudoku Project" << std::endl;
+    std::cout << "###################################################" << std::endl;
+    std::cout << std::endl << "1 - RETORNAR AO MENU INICIAL \n2 - SAIR\n" << std::endl;
+    opcao = getch();
+    switch(opcao)
+    {
+    case '1':
+        LimpaTela();
+        retorno= 0;
+        break;
+    case '2':
+        SairMenu();
+        break;
+    default:
+        std::cout << "Você deve escolher uma opcao valida\n";
+        std::cout << "Pressione qualquer tecla para voltar ao menu\n\n";
+        PausaTela();
+        MenuCreditos();
+    }
+    return retorno;
+}
+
+int MenuInicial(){
+    int opcao;
+    int retorno=0;
+    LimpaTela();
+    std::cout << "1 - JOGAR \n2 - REGRAS \n3 - CRÉDITOS \n4 - SAIR\n";
+    opcao = getch();
+    switch (opcao)
+    {
+    case '1':
+        retorno = MenuDificuldade();
+        break;
+    case '2':
+        retorno = MenuRegras();
+        break;
+    case '3':
+        retorno = MenuCreditos();
+        break;
+    case '4':
+        SairMenu();
+        break;
+    default:
+        std::cout << "Você deve escolher uma opcao valida\n";
+        std::cout << "Pressione qualquer tecla para voltar ao menu\n\n";
+        PausaTela();
+        MenuInicial();
+    }
+
+}
 
 // "Print" mostra na tela matrizes 9x9
 void print(int mat[N][N])
@@ -415,7 +433,7 @@ void deletanumeros(int dificuldade)
             jogofeito[x][y]=0;
             cont++;
         }
-        if(cont!=impossiel)
+        if(cont!=impossivel)
             deletanumeros(3);
         break;
 
@@ -520,7 +538,11 @@ int main()
 
 
 mainvolta:
-    dificuldade=menu(); //Pega o nivel de dificuldade que a pessoa escolher+
+do{
+
+    dificuldade = MenuInicial(); //Pega o nivel de dificuldade que a pessoa escolher+
+
+    }while(dificuldade==0);
 
     do
     {
